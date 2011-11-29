@@ -1,0 +1,11 @@
+--- at-3.1.7/at.c.lockfile	Wed Oct 22 17:56:22 1997
++++ at-3.1.7/at.c	Wed Oct 22 17:56:40 1997
+@@ -199,7 +199,7 @@
+ 	fscanf(fid, "%5lx", &jobno);
+ 	rewind(fid);
+     } else {
+-	fid = fopen(ATJOB_DIR "/.SEQ", "w");
++	fid = fopen(LFILE, "w");
+ 	if (fid == NULL)
+ 	    return EOF;
+     }

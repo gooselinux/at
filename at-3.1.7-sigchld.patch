@@ -1,0 +1,12 @@
+--- at-3.1.7/atd.c.sigchld	Mon May 24 16:56:41 1999
++++ at-3.1.7/atd.c	Mon May 24 16:58:57 1999
+@@ -348,6 +348,9 @@
+ 	    if (setuid(uid) < 0)
+ 		perr("Cannot set user id");
+ 
++	    if (SIG_ERR == signal(SIGCHLD, SIG_DFL))
++		perr("Cannot reset signal handler to default");
++
+ 	    chdir("/");
+ 
+ 	    if (execle("/bin/sh", "sh", (char *) NULL, nenvp) != 0)

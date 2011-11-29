@@ -1,0 +1,28 @@
+diff -up at-3.1.10/Makefile.in.PIE at-3.1.10/Makefile.in
+--- at-3.1.10/Makefile.in.PIE	2008-01-08 09:53:24.000000000 +0100
++++ at-3.1.10/Makefile.in	2008-01-08 09:53:53.000000000 +0100
+@@ -68,13 +68,13 @@ LIST = Filelist Filelist.asc
+ all: at atd atrun
+ 
+ at: $(ATOBJECTS)
+-	$(CC) $(CFLAGS) -o at -pie $(ATOBJECTS) $(LIBS) $(LEXLIB) $(PAMLIB)
++	$(CC) $(CFLAGS) -o at -PIE $(ATOBJECTS) $(LIBS) $(LEXLIB) $(PAMLIB)
+ 	rm -f $(CLONES)
+ 	$(LN_S) -f at atq
+ 	$(LN_S) -f at atrm
+ 
+ atd: $(RUNOBJECTS)
+-	$(CC) $(CFLAGS) -o atd -pie $(RUNOBJECTS) $(LIBS) $(SELINUXLIB) $(PAMLIB)
++	$(CC) $(CFLAGS) -o atd -PIE $(RUNOBJECTS) $(LIBS) $(SELINUXLIB) $(PAMLIB)
+ 
+ y.tab.c y.tab.h: parsetime.y
+ 	$(YACC) -d parsetime.y
+@@ -86,7 +86,7 @@ atrun: atrun.in
+ 	configure
+ 
+ .c.o:
+-	$(CC) -c $(CFLAGS) -fpie $(DEFS) $*.c
++	$(CC) -c $(CFLAGS) -fPIE $(DEFS) $*.c
+ 
+ install: all
+ 	$(INSTALL) -m 755 -d $(IROOT)$(etcdir)

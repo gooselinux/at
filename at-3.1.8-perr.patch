@@ -1,0 +1,12 @@
+diff -up at-3.1.10/atd.c.bla at-3.1.10/atd.c
+--- at-3.1.10/atd.c.bla	2008-07-18 15:18:35.000000000 +0200
++++ at-3.1.10/atd.c	2008-07-18 15:19:41.000000000 +0200
+@@ -643,7 +643,7 @@ run_file(const char *filename, uid_t uid
+ #if defined(SENDMAIL)
+ 	    execl(SENDMAIL, "sendmail", mailname, (char *) NULL);
+ #else
+-#error      "No mail command specified."
++		perr("No mail command specified.");
+ #endif
+ 	    perr("Exec failed for mail command");
+ 

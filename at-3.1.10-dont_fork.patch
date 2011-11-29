@@ -1,0 +1,66 @@
+--- at-3.1.10/atd.8.in.fork	2005-08-29 10:08:51.000000000 +0200
++++ at-3.1.10/atd.8.in	2007-07-03 14:04:05.000000000 +0200
+@@ -1,5 +1,5 @@
+ .Id $Id$
+-.TH ATD 8 "Mar 1997" local "Linux Programmer's Manual"
++.TH ATD 3 "Jun 2007" at-3.1.10 "Linux Programmer's Manual"
+ .SH NAME
+ atd \- run jobs queued for later execution
+ .SH SYNOPSIS
+@@ -10,6 +10,7 @@
+ .IR batch_interval ]
+ .RB [ -d ]
+ .RB [ -s ]
++.RB [ -n ]
+ .SH DESCRIPTION
+ .B atd
+ runs jobs queued by
+@@ -46,6 +47,9 @@
+ is installed as
+ .B @prefix@/sbin/atrun
+ for backward compatibility.
++.TP 8
++.B -n
++Don't fork option.
+ .SH WARNING
+ .B atd
+ won't work if its spool directory is mounted via NFS even if
+--- at-3.1.10/daemon.h.fork	2005-08-05 05:16:01.000000000 +0200
++++ at-3.1.10/daemon.h	2007-07-03 14:02:22.000000000 +0200
+@@ -14,3 +14,4 @@
+ perr (const char *fmt, ...);
+ 
+ extern int daemon_debug;
++extern int daemon_nofork;
+--- at-3.1.10/daemon.c.fork	2005-08-05 05:16:01.000000000 +0200
++++ at-3.1.10/daemon.c	2007-07-03 14:01:51.000000000 +0200
+@@ -50,7 +50,8 @@
+ 
+ static const char *svnid = "$Id$";
+ 
+-int daemon_debug;
++int daemon_debug = 0;
++int daemon_nofork = 0;
+ 
+ static int
+ lock_fd(int fd)
+@@ -119,15 +120,18 @@
+ 	    (open("/dev/null", O_RDWR) != 2)) {
+ 	    perr("Error redirecting I/O");
+ 	}
++    }
++    if (daemon_nofork) pid = getpid();
++    else {
+ 	pid = fork();
+ 	if (pid == -1) {
+ 	    perr("Cannot fork");
+ 	} else if (pid != 0) {
+ 	    exit(0);
+ 	}
++	(void) setsid();
+     }
+     old_umask = umask(S_IWGRP | S_IWOTH);
+-    (void) setsid();
+ 
+     PRIV_START
+ 

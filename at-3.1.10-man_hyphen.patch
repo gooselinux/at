@@ -1,0 +1,14 @@
+diff -up at-3.1.10/at.1.in.hyphen at-3.1.10/at.1.in
+--- at-3.1.10/at.1.in.hyphen	2009-02-19 08:47:39.000000000 +0100
++++ at-3.1.10/at.1.in	2009-02-19 08:48:19.000000000 +0100
+@@ -89,7 +89,9 @@ or giving a date of the form
+ or
+ .B MM/DD/YY
+ or
+-.B DD.MM.YY.
++.B DD.MM.YY
++or
++.B YYYY-MM-DD.
+ The specification of a date
+ .I must
+ follow the specification of the time of day.

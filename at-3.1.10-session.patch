@@ -1,0 +1,11 @@
+--- at-3.1.10/atd.c.old	2007-07-12 11:12:36.000000000 +0200
++++ at-3.1.10/atd.c	2007-07-12 11:20:40.000000000 +0200
+@@ -303,6 +303,8 @@
+ 	free(newname);
+ 	return;
+     }
++    (void) setsid(); //own session for process
++    
+     /* Let's see who we mail to.  Hopefully, we can read it from
+      * the command file; if not, send it to the owner, or, failing that,
+      * to root.

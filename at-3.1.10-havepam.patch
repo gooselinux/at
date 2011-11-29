@@ -1,0 +1,40 @@
+--- at-3.1.10/atd.c.havepam	2007-08-22 10:37:16.000000000 +0200
++++ at-3.1.10/atd.c	2007-08-22 10:39:42.000000000 +0200
+@@ -121,7 +121,7 @@
+ 
+ static volatile sig_atomic_t term_signal = 0;
+ 
+-#ifdef HAVE_PAM
++#ifdef WITH_PAM
+ #include <security/pam_appl.h>
+ 
+ static pam_handle_t *pamh = NULL;
+@@ -139,7 +139,7 @@
+ #define PAM_END { retcode = pam_close_session(pamh,0); \
+ 		pam_end(pamh,retcode); }
+ 
+-#endif /* HAVE_PAM */
++#endif /* WITH_PAM */
+ 
+ /* Signal handlers */
+ RETSIGTYPE 
+@@ -246,7 +246,7 @@
+     char queue;
+     char fmt[64];
+     unsigned long jobno;
+-#ifdef HAVE_PAM
++#ifdef WITH_PAM
+     int retcode;
+ #endif
+ 
+--- at-3.1.10/configure.in.havepam	2007-08-22 10:37:16.000000000 +0200
++++ at-3.1.10/configure.in	2007-08-22 10:37:16.000000000 +0200
+@@ -80,7 +80,7 @@
+ AC_FUNC_GETLOADAVG
+ AC_CHECK_FUNCS(getcwd mktime strftime setreuid setresuid sigaction waitpid)
+ AC_CHECK_HEADERS(security/pam_appl.h, [PAMLIB="-lpam"
+-				      AC_DEFINE(HAVE_PAM)])
++				      AC_DEFINE(WITH_PAM)])
+ 
+ dnl Checking for programs
+ 

@@ -1,0 +1,14 @@
+#!/bin/sh
+# 
+
+. "${PM_FUNCTIONS}"
+
+case "$1" in
+	hibernate|suspend)
+		;;
+	thaw|resume)
+		/etc/init.d/atd restart
+		;;
+	*) exit $NA
+		;;
+esac

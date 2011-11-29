@@ -1,0 +1,11 @@
+--- at-3.1.10/at.1.in.path	2005-08-29 10:09:24.000000000 +0200
++++ at-3.1.10/at.1.in	2006-09-07 11:07:21.000000000 +0200
+@@ -110,7 +110,7 @@
+ .B at 1am tomorrow.
+ .PP
+ The exact definition of the time specification can be found in
+-.IR @prefix@/share/doc/at/timespec .
++.IR @prefix@/share/doc/at-@VERSION@/timespec.
+ .PP
+ For both
+ .BR at " and " batch ,
